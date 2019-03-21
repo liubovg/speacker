@@ -1,0 +1,21 @@
+{
+  "name": "web-speech-api-master",
+  "version": "1.0.0",
+  "description": "A repository for demos illustrating features of the Web Speech API. See [Web_Speech_API](https://developer.mozilla.org/en-US/docs/Web/API/Web_Speech_API) for more details.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start":"index.html"
+
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/liubovg/speacker.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/liubovg/speacker/issues"
+  },
+  "homepage": "https://github.com/liubovg/speacker#readme"
+}
