@@ -5,7 +5,7 @@ var SpeechRecognition = SpeechRecognition || webkitSpeechRecognition;
 var SpeechGrammarList = SpeechGrammarList || webkitSpeechGrammarList;
 var SpeechRecognitionEvent = SpeechRecognitionEvent || webkitSpeechRecognitionEvent;
 
-var sides = [  'left','right'];
+var sides = [  'left','center','right'];
 var grammar = '#JSGF V1.0; grammar sides; public <side> = ' + sides.join(' | ') + ' ;';
 
 var recognition = new SpeechRecognition();
@@ -45,7 +45,11 @@ var shift = function (side) {
             position_number += 1;
         }
     }
+    else if(side === "Center"){
+            position_number = 2;
+    }
 };
+
 
 recognition.onresult = function(event) {
   // The SpeechRecognitionEvent results property returns a SpeechRecognitionResultList object
@@ -60,23 +64,29 @@ recognition.onresult = function(event) {
     var last = event.results.length - 1;
     var side = event.results[last][0].transcript;
 
-
     diagnostic.textContent = 'Result received: ' + side + '.';
-    shift();
+    shift(side.toString());
     document.getElementById('men').className="position_"+position_number;
     // bg.style.backgroundColor = color;
     console.log('Confidence: ' + event.results[0][0].confidence);
+    console.log('Ready to receive a move command.');
+
 };
 
 recognition.onspeechend = function() {
     recognition.stop();
+    var x = document.createEvent("MouseEvent");
+    x.initMouseEvent("onclick", true, true, window, 0, 0, 0, 0, 0, false, false, false, false, 0, null);
+
 };
 
 recognition.onnomatch = function(event) {
     diagnostic.textContent = "I didn't recognise that side.";
+    recognition.onspeechend();
 };
 
 
 recognition.onerror = function(event) {
     diagnostic.textContent = 'Error occurred in recognition: ' + event.error;
+    recognition.onspeechend();
 };
