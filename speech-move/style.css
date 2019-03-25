@@ -60,16 +60,27 @@ ul {
 
 
 .position_1 {
-  top: 200px;
+  top: 300px;
   left: 300px;
 }
 
 .position_2 {
-  top: 200px;
+  top: 300px;
   left: 620px;
 }
 
 .position_3 {
-  top: 200px;
+  top: 300px;
   left: 940px;
+}
+
+#command_button {
+  height: 100px;
+  width: 250px;
+  font-size: 28px;
+  background-color: darkblue ;
+  border-color: white;
+  color: white;
+  border-radius: 15%;
+  margin-left: 41%;
 }

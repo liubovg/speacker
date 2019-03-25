@@ -1,19 +1,9 @@
 # web-speech-api
 A repository for demos illustrating features of the Web Speech API. See [Web_Speech_API](https://developer.mozilla.org/en-US/docs/Web/API/Web_Speech_API) for more details.
 
-## Speech color changer demo
-[Run recognition demo live](https://mdn.github.io/web-speech-api/speech-color-changer/)
+## Speech movement
 
-Tap the screen then say a colour — the grammar string contains a large number of HTML keywords to choose from, although we've removed most of the multiple word colors to remove ambiguity. We did keep goldenrod, cos, well.
-
-This current works only on Chrome/Chrome Mobile. To get this code running successfully, you'll need to run the code through a web server (localhost will work.)
-
-## Phrase matcher demo
-Speak the phrase and then see if the recognition engine successfully recognises it — this is another demo that relies on speech recognition, written for a research team at the University of Nebraska at Kearney.
-
-This current works only on Chrome/Chrome Mobile. To get this code running successfully, you'll need to run the code through a web server (localhost will work.)
-
-[Run phrase matcher demo live](https://mdn.github.io/web-speech-api/phrase-matcher/)
+To run application use npm start for \web-speech-api-master\index.html
 
 ## Speak easy synthesis demo
 [Run synthesis demo live](https://mdn.github.io/web-speech-api/speak-easy-synthesis/)

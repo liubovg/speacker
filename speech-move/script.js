@@ -12,7 +12,7 @@ var recognition = new SpeechRecognition();
 var speechRecognitionList = new SpeechGrammarList();
 speechRecognitionList.addFromString(grammar, 1);
 recognition.grammars = speechRecognitionList;
-//recognition.continuous = false;
+recognition.continuous = true;
 recognition.lang = 'en-US';
 recognition.interimResults = false;
 recognition.maxAlternatives = 1;
@@ -27,29 +27,35 @@ sides.forEach(function(v, i){
     console.log(v, i);
     sideHTML += '<span style="background-color: lightgreen; margin: 50px;  font-size: 30px"> ' + v + ' </span>';
 });
-hints.innerHTML = 'Tap/click then say where it has to move. Try '+'</br>'+ sideHTML + '.';
+hints.innerHTML = 'Say where it has to move. Try '+'</br>'+ sideHTML + '.';
 
-document.body.onclick = function() {
+var onRecgnitionStart = function() {
     recognition.start();
     console.log('Ready to receive a move command.');
 };
 
-var shift = function (side) {
-    if(side === "left"){
-        if(position_number-1>=1) {
-            position_number -= 1;
-        }
-    }
-    else if(side === "right"){
-        if(position_number+1<=3) {
-            position_number += 1;
-        }
-    }
-    else if(side === "Center"){
-            position_number = 2;
-    }
-};
+// document.getElementById("command_button").onclick = onRecgnitionStart();
 
+var shift = function (side) {
+    switch (side) {
+        case 'left' :
+            if (position_number - 1 >= 1) {
+                position_number -= 1;
+            }
+            break;
+        case 'right' :
+            if (position_number + 1 <= 3) {
+                position_number += 1;
+            }
+            break;
+        case 'Center' :
+            position_number = 2;
+            break;
+        default :
+    }
+}
+
+onRecgnitionStart();
 
 recognition.onresult = function(event) {
   // The SpeechRecognitionEvent results property returns a SpeechRecognitionResultList object
@@ -65,28 +71,26 @@ recognition.onresult = function(event) {
     var side = event.results[last][0].transcript;
 
     diagnostic.textContent = 'Result received: ' + side + '.';
-    shift(side.toString());
+    shift(side.toString().split(' ').join(''));
     document.getElementById('men').className="position_"+position_number;
-    // bg.style.backgroundColor = color;
     console.log('Confidence: ' + event.results[0][0].confidence);
     console.log('Ready to receive a move command.');
-
-};
+    console.log("on result");
+}
 
 recognition.onspeechend = function() {
-    recognition.stop();
-    var x = document.createEvent("MouseEvent");
-    x.initMouseEvent("onclick", true, true, window, 0, 0, 0, 0, 0, false, false, false, false, 0, null);
-
-};
+    console.log("on end")
+}
 
 recognition.onnomatch = function(event) {
     diagnostic.textContent = "I didn't recognise that side.";
-    recognition.onspeechend();
+    console.log("no match")
 };
 
 
 recognition.onerror = function(event) {
     diagnostic.textContent = 'Error occurred in recognition: ' + event.error;
-    recognition.onspeechend();
+    console.log("on error")
 };
+
+recognition.onend = onRecgnitionStart;
