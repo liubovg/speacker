@@ -62,8 +62,8 @@ var process_mesage = function(message){
     sides.forEach(function (side) {
         arrayOfIndexes.push(message1.lastIndexOf(side))
     });
-    var res=arrayOfIndexes[indexOf(Math.max(...arrayOfIndexes))]
-    if (res !== -1) {
+    var res = arrayOfIndexes.indexOf(Math.max(...arrayOfIndexes));
+    if (Math.max(...arrayOfIndexes) !== -1) {
         return sides[res];
     }
     else return 'no-match'
