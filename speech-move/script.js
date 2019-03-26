@@ -5,7 +5,7 @@ var SpeechRecognition = SpeechRecognition || webkitSpeechRecognition;
 var SpeechGrammarList = SpeechGrammarList || webkitSpeechGrammarList;
 var SpeechRecognitionEvent = SpeechRecognitionEvent || webkitSpeechRecognitionEvent;
 
-var sides = [  'left','center','right'];
+var sides = ['left','center','right'];
 var grammar = '#JSGF V1.0; grammar sides; public <side> = ' + sides.join(' | ') + ' ;';
 
 var recognition = new SpeechRecognition();
@@ -62,8 +62,9 @@ var process_mesage = function(message){
     sides.forEach(function (side) {
         arrayOfIndexes.push(message1.lastIndexOf(side))
     });
-    if (arrayOfIndexes.indexOf(Math.max(...arrayOfIndexes)) !== -1) {
-        return sides[arrayOfIndexes.indexOf(Math.max(...arrayOfIndexes))];
+    var res=arrayOfIndexes[indexOf(Math.max(...arrayOfIndexes))]
+    if (res !== -1) {
+        return sides[res];
     }
     else return 'no-match'
 }
