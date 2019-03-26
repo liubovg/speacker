@@ -55,6 +55,19 @@ var shift = function (side) {
     }
 }
 
+var process_mesage = function(message){
+// message.toString().trim();
+    var message1 = message.toString().toLocaleLowerCase();
+    var arrayOfIndexes = [];
+    sides.forEach(function (side) {
+        arrayOfIndexes.push(message1.lastIndexOf(side))
+    });
+    if (arrayOfIndexes.indexOf(Math.max(...arrayOfIndexes)) !== -1) {
+        return sides[arrayOfIndexes.indexOf(Math.max(...arrayOfIndexes))];
+    }
+    else return 'no-match'
+}
+
 onRecgnitionStart();
 
 recognition.onresult = function(event) {
@@ -68,10 +81,10 @@ recognition.onresult = function(event) {
   // We then return the transcript property of the SpeechRecognitionAlternative object
 
     var last = event.results.length - 1;
-    var side = event.results[last][0].transcript;
-
-    diagnostic.textContent = 'Result received: ' + side + '.';
-    shift(side.toString().split(' ').join(''));
+    var message = event.results[last][0].transcript;
+    var side = process_mesage(message);
+    diagnostic.textContent = 'Result received: ' + message + '.';
+    shift(side);
     document.getElementById('men').className="position_"+position_number;
     console.log('Confidence: ' + event.results[0][0].confidence);
     console.log('Ready to receive a move command.');
